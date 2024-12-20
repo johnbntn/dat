@@ -1,0 +1,22 @@
+### Starting build.
+# Target: gen_info.ml.depends, tags: { package(bap), package(core_kernel), package(csv), package(ppx_bap), custom, debug, extension:ml, file:gen_info.ml, ocaml, ocamldep, quiet, thread, traverse }
+ocamlfind ocamldep -package csv -package ppx_bap -package core_kernel -package bap -modules gen_info.ml > gen_info.ml.depends
+# Target: gen_info.cmo, tags: { package(bap), package(core_kernel), package(csv), package(ppx_bap), byte, compile, custom, debug, extension:cmo, extension:ml, file:gen_info.cmo, file:gen_info.ml, implem, ocaml, quiet, thread, traverse }
+ocamlfind ocamlc -c -g -thread -package csv -package ppx_bap -package core_kernel -package bap -o gen_info.cmo gen_info.ml
+# Target: gen_info.cmx, tags: { package(bap), package(core_kernel), package(csv), package(ppx_bap), compile, custom, debug, extension:cmx, extension:ml, file:gen_info.cmx, file:gen_info.ml, implem, native, ocaml, quiet, thread, traverse }
+ocamlfind ocamlopt -c -g -thread -package csv -package ppx_bap -package core_kernel -package bap -o gen_info.cmx gen_info.ml
+# Target: gen_info.cmxa, tags: { package(bap), package(core_kernel), package(csv), package(ppx_bap), custom, debug, dont_link_with, extension:cmxa, file:gen_info.cmxa, library, link, native, ocaml, quiet, thread, traverse }
+ocamlfind ocamlopt -a -thread -package csv -package ppx_bap -package core_kernel -package bap gen_info.cmx -o gen_info.cmxa
+# Target: gen_info.cmxs, tags: {  }
+ocamlfind ocamlopt -shared -linkall -ccopt -L -ccopt . gen_info.cmxa -o gen_info.cmxs
+# Target: csv.cmxs, tags: {  }
+ocamlfind ocamlopt -shared -linkall -ccopt -L -ccopt /home/johncmpsc/.opam/default/lib/csv /home/johncmpsc/.opam/default/lib/csv/csv.cmxa -o csv.cmxs
+# Target: csv.cma, tags: {  }
+ocamlfind ocamlc -linkall -a /home/johncmpsc/.opam/default/lib/csv/csv.cma -o csv.cma
+# Target: gen_info.cma, tags: { package(bap), package(core_kernel), package(csv), package(ppx_bap), byte, custom, debug, dont_link_with, extension:cma, file:gen_info.cma, library, link, ocaml, quiet, thread, traverse }
+ocamlfind ocamlc -a -custom -thread -package csv -package ppx_bap -package core_kernel -package bap gen_info.cmo -o gen_info.cma
+# Target: gen_info.plugin, tags: { bundle, library, plugin }
+bapbundle pack -name gen_info -main gen_info.cmxs -main gen_info.cma -requires 'csv=csv.cmxs,csv=csv.cma' -provides gen_info gen_info.plugin
+# Target: ln -sf /home/johncmpsc/sos/databap/_build/gen_info.plugin .., tags: {  }
+ln -sf /home/johncmpsc/sos/databap/_build/gen_info.plugin ..
+# Compilation successful.
