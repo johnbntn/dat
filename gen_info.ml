@@ -18,12 +18,11 @@ let consume_sequence seq =
 let gen_callgraph prog =
   let callgraph_facts = Out_channel.create "callgraph.csv" in
   let cg = Program.to_graph prog in
-  CG.nodes cg |> Seq.map ~f:(fun node ->
-      let calls =
-        CG.Node.outputs node cg |> Seq.map ~f:(fun edge ->
-            Tid.to_string (CG.Edge.dst edge)) |> Seq.to_list in
-
-      Csv.output_record (Csv.to_channel callgraph_facts) calls)
+  CG.edges cg |> Seq.map ~f:(fun edge ->
+      let src = Tid.name (CG.Edge.src edge) in
+      let dst = Tid.name (CG.Edge.dst edge) in
+      let call = [src; dst] in
+      Csv.output_record (Csv.to_channel callgraph_facts) call)
       
 
 let main proj =
