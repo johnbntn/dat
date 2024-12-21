@@ -1,0 +1,10 @@
+.decl callgraph(src:symbol, dst:symbol)
+.input callgraph
+
+.decl path(src:symbol, dst:symbol)
+path(src, dst) :- callgraph(src, dst).
+path(src, dst) :- path(src, x), callgraph(x, dst).
+
+.decl res(a:symbol)
+.output res
+res("Calls") :- path("@main", "@fun").
