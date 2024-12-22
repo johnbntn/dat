@@ -30,11 +30,29 @@ let gen_callgraph prog =
       create_facts callgraph_facts [call]);
   Out_channel.close callgraph_facts
 
+(*
+let gen_cfg prog =
+  let cfg_facts = Out_channel.create "cfg.facts" in
+  Term.enum sub_t prog |> Seq.iter ~f:(fun sub ->
+      Term.enum blk_t sub |> Seq.iter ~f:(fun blk ->
+          Term.enum jmp_t blk |> Seq.iter ~f:(fun j ->
+              match Jmp.kind j with
+              | Goto _ | Ret _ | Int(_,_) -> ()
+              | Call dst -> match Call.target dst with
+                | Direct tid ->
+                  let src = Sub.to_string sub in
+                  let dst = Call.to_string dst in
+                  let call = [src; dst] in
+                  create_facts cfg_facts [call];
+                | _ -> ())));
+  Out_channel.close cfg_facts
       
+*)
 
 let main proj =
   let prog = Project.program proj in
-  gen_callgraph prog
+  gen_callgraph prog;
+  (*gen_cfg prog;*)
   
 
 module Cmdline = struct

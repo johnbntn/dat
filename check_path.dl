@@ -5,6 +5,7 @@
 path(src, dst) :- callgraph(src, dst).
 path(src, dst) :- path(src, x), callgraph(x, dst).
 
-.decl res(a:symbol)
-.output res
-res("Calls") :- path("@main", "@fun").
+.decl check_path(a:symbol)
+.output check_path
+check_path("Calls") :- path("@src", "@dst").
+check_path("Calls") :- path(p, "@src"), path(q, "@dst"), path(p, q).

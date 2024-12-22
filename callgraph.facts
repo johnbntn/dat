@@ -4,5 +4,11 @@
 @_start	@__libc_start_main
 @_start	@intrinsic:hlt
 @_start	@deregister_tm_clones
+@dst	@sub_113c
 @frame_dummy	@register_tm_clones
-@main	@sub_112d
+@main	@sub_1164
+@q	@sub_114b
+@src	@sub_112d
+@sub_114b	@dst
+@sub_1164	@q
+@sub_1164	@src
