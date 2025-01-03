@@ -1,1 +1,1 @@
-gen_info.ml: Bap Config Core_kernel Csv Format Graphlib Graphs List Out_channel Poly Program Project Self Seq String Tid
+gen_info.ml: Bap Blk Call Config Core_kernel Def Exp Format Graphlib Graphs Jmp List Out_channel Phi Poly Program Project Self Seq Set String Term Tid Var

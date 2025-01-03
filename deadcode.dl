@@ -1,0 +1,9 @@
+.decl def(def:symbol)
+.input def(filename = "defs.facts")
+
+.decl use(use:symbol)
+.input use(filename="uses.facts")
+
+.decl dead(def:symbol)
+.output dead
+dead(var) :- def(var), !use(var).
