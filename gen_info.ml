@@ -100,7 +100,7 @@ module Cmdline = struct
   open Config
 
   let () = when_ready (fun _ ->
-      Project.register_pass' (main))
+      Project.register_pass' ~deps:["ssa"] (main))
 
   let () = manpage [
       `S "DESCRIPTION";

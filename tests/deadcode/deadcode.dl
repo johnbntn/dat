@@ -1,8 +1,8 @@
 .decl def(def:symbol)
-.input def(filename = "defs.facts")
+.input def(filename = "/../../facts/defs.facts")
 
 .decl use(use:symbol)
-.input use(filename="uses.facts")
+.input use(filename="/../../facts/uses.facts")
 
 .decl dead(def:symbol)
 .output dead
