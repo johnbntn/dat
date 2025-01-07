@@ -19,4 +19,4 @@ You can also append DAT to your path by running `PATH=$PATH:~/path/to/dat.sh`
 
 ## Contributing
 
-If you want to extend the tool, start with `gen_info.ml` to understand the source code.
+If you want to extend the tool, start with `gen_info.ml` to understand the source code, then fork and make a PR.
