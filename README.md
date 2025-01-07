@@ -5,7 +5,7 @@ DAT is a framework for doing program analysis in Datalog. It relies on [BAP](htt
 
 ## Installation and Usage
 
-To install the plugin, clone this repository and run `./compile-plugin.sh` to create the BAP plugin.
+To install the plugin, make sure BAP is downloaded `opam list bap`, then, clone this repository and run `./compile-plugin.sh` to create the BAP plugin.
 
 Once installed run `./dat path/to/file` to create your Datalog facts. Now you can create an analysis, see the `/tests` directory for examples written in [Souffle Datalog](https://souffle-lang.github.io/).
 
