@@ -8,8 +8,6 @@ include Self()
 module CG = Graphs.Callgraph
 module CFG = Graphs.Tid
 
-open Core_kernel
-open Bap.Std
 
 (* note, this function will return all variables, including
    non-free *)
@@ -22,6 +20,7 @@ let vars_of_label = function
   | Indirect exp -> vars_of_exp exp
   | Direct _ -> Var.Set.empty
 
+(*Collect a def/use for every variable in a given sub*)
 let collect_vars sub =
   let (++) = Set.union in
   Term.enum blk_t sub |>
@@ -47,6 +46,7 @@ let collect_vars sub =
               | None -> Var.Set.empty
               | Some dst -> vars_of_label dst))
 
+(*Take in a string list list and add each as a datalog fact*)
 let create_facts oc fact =
   fact |> List.iter ~f:(fun fact ->
       Out_channel.output_string oc (String.concat ~sep:"\t" fact);
@@ -59,7 +59,7 @@ let consume_sequence seq =
 
 (*Create .facts file, callgraph, then add the edges of every node (function calls) to the .facts*)
 let gen_callgraph prog =
-  let callgraph_facts = Out_channel.create "callgraph.facts" in
+  let callgraph_facts = Out_channel.create "facts/callgraph.facts" in
   let cg = Program.to_graph prog in
   CG.edges cg |> Seq.iter ~f:(fun edge ->
       let src = (Tid.name (CG.Edge.src edge)) in
@@ -68,13 +68,15 @@ let gen_callgraph prog =
       create_facts callgraph_facts [call]);
   Out_channel.close callgraph_facts
 
+(*Collect all variables into sets for defs/uses for each subroutine and iterate through each set
+adding each def/use as a datalog rule*)
 let gen_ssa prog arch =
   let module Target = (val target_of_arch arch) in
   let no_side_effects var =
     let open Target.CPU in
     Var.is_virtual var || is_flag var in
-  let uses_facts = Out_channel.create "uses.facts" in
-  let defs_facts = Out_channel.create "defs.facts" in
+  let uses_facts = Out_channel.create "facts/uses.facts" in
+  let defs_facts = Out_channel.create "facts/defs.facts" in
   Term.enum sub_t prog |> Seq.iter ~f:(fun sub ->
       let defs_init,uses_init = collect_vars sub in
       let defs = Set.filter defs_init ~f:no_side_effects in
@@ -110,6 +112,4 @@ module Cmdline = struct
       binary analysis in Souffle Datalog"
     ]
 end
-
-
-    
+  
