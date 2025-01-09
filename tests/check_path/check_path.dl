@@ -2,8 +2,8 @@
 .input calls(filename = "/../../facts/callgraph.facts")
 
 .decl path(src:symbol, dst:symbol)
-path(src, dst) :- callgraph(src, dst).
-path(src, dst) :- path(src, x), callgraph(x, dst).
+path(src, dst) :- calls(src, dst).
+path(src, dst) :- path(src, x), calls(x, dst).
 
 .decl check_path(src:symbol, dst:symbol)
 check_path(src, dst) :- path(src, dst).

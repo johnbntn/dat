@@ -9,7 +9,7 @@ To install the plugin, make sure BAP is downloaded `opam list bap`, then, clone 
 
 Once installed run `./dat path/to/file` to create your Datalog facts. Now you can create an analysis, see the `/tests` directory for examples written in [Souffle Datalog](https://souffle-lang.github.io/).
 
-You can also append DAT to your path by running `PATH=$PATH:~/path/to/dat.sh`
+You can also append DAT to your path by running `PATH=$PATH:~/path/to/dat.sh`.
 
 ## Facts
 
