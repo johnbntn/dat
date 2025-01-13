@@ -1,7 +1,7 @@
 # Datalog Analysis Tool (DAT)
 
 ## Overview
-DAT is a framework for doing program analysis in Datalog. It relies on [BAP](https://github.com/BinaryAnalysisPlatform/bap) to generate Datalog rules and thus supports all architectures supported by BAP.
+DAT is a framework for doing program analysis in Datalog. It relies on [BAP](https://github.com/BinaryAnalysisPlatform/bap) to generate Datalog rules and thus supports all architectures supported by BAP. For a more formal explanation of the framework, see dat_paper.pdf.
 
 ## Installation and Usage
 
